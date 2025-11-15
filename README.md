@@ -1,205 +1,126 @@
-# 🟦 **Loan Approval Prediction**
+# 🟦 Loan Approval Prediction
 
-### **Machine Learning Project | Classification | End-to-End Pipeline**
+### Machine Learning Classification Project | End-to-End Pipeline
 
+---
 
+## 📌 Project Overview
 
-## 📌 **Project Overview**
+Banks receive thousands of loan applications daily. Approving the wrong customer increases financial risk, while rejecting good customers reduces business.
 
-Financial institutions receive thousands of loan applications daily. Approving loans without proper evaluation increases the risk of default, while rejecting genuine applicants can reduce business.
+This project builds a complete **end-to-end loan approval prediction system** using machine learning.  
+Given features such as:
 
-This project builds a **machine learning model** to automatically predict whether a loan should be **approved or rejected** based on customer details such as:
+- Income  
+- Credit score  
+- Employment experience  
+- Loan amount  
+- Loan percent income  
+- Previous defaults  
+- Loan intent  
 
-* Income
-* Credit history
-* Employment
-* Dependents
-* Loan amount
-* Property area
+the model predicts whether a loan should be **approved (1)** or **rejected (0)**.
 
-The goal is to create a reliable loan approval system that helps banks make data-driven decisions.
+---
 
+## 📁 Dataset Information
 
+**Target Variable:**
+- **1 → Loan Approved**
+- **0 → Loan Rejected**
 
-## 📁 **Dataset Information**
+**Key Features Used:**
 
-* Dataset Type: **Loan Approval Classification**
-* Target Variable:
+- `person_age`
+- `person_gender`
+- `person_education`
+- `person_income`
+- `person_emp_exp`
+- `person_home_ownership`
+- `loan_amnt`
+- `loan_intent`
+- `loan_int_rate`
+- `loan_percent_income`
+- `cb_person_cred_hist_length`
+- `credit_score`
+- `previous_loan_defaults_on_file`
 
-  * **1 = Loan Approved**
-  * **0 = Loan Rejected**
+Dataset contains:
+- Mixed categorical + numerical variables  
+- Some imbalance  
+- Noisy values in credit-related features  
 
-Typical features include:
+---
 
-* ApplicantIncome
-* CoapplicantIncome
-* LoanAmount
-* Loan_Amount_Term
-* Credit_History
-* Gender, Married, Education
-* Self_Employed
-* Property_Area
-* Dependents
+## 🧭 Workflow
 
-Dataset may include:
+### **1️⃣ Data Understanding & Cleaning**
+- Checked data types  
+- Checked missing values  
+- Converted categorical → numerical using Label Encoding  
+- Verified all features became numeric  
+- Removed inconsistencies  
+- Split features (X) and target (y)  
 
-* **Missing values**
-* **Categorical variables**
-* **Outliers**
-* **Imbalance between approved vs rejected**
+---
 
+### **2️⃣ Exploratory Data Analysis (EDA)**
 
+Performed detailed EDA:
 
-## 🧭 **Workflow**
+- Distribution of loan amounts, income, age  
+- Countplots for categorical variables  
+- Correlation heatmap  
+- Outlier inspection  
+- Approval rate across categories  
 
-### **1. Data Understanding**
+**Key insights:**
 
-* Loaded dataset into Pandas
-* Checked shape, columns, datatypes
-* Analyzed missing values
-* Detected categorical & numerical features
-* Handled duplicates & basic cleaning
+- Higher credit score strongly predicts approval  
+- Loan percent income (EMI burden) influences risk  
+- Previous defaults correlate with rejection  
+- Income and education level affect approval likelihood  
 
+---
 
+### **3️⃣ Feature Engineering & Scaling**
+- Label-encoded all categorical columns  
+- StandardScaler applied for Logistic Regression  
+- Created clean training/test splits  
 
-### **2. Exploratory Data Analysis (EDA)**
+---
 
-* Distribution plots (Income, Loan Amount)
-* Countplots for categorical features
-* Approval rate comparison across gender, property area, education etc.
-* Boxplots for income vs loan approval
-* Correlation heatmap
+### **4️⃣ Model Building**
 
-Key insights:
+Trained two models:
 
-* Credit history strongly influences loan approval
-* High applicant income increases approval chances
-* Loan amount & loan term affect approval probability
-* Married applicants had slightly higher approval ratios (dataset-dependent)
+#### ✔ Logistic Regression (Baseline)
+- Simple and interpretable  
+- Lower recall and lower AUC  
 
+#### ✔ Random Forest (Final Selected Model)
+- Captures non-linear relationships  
+- Strong performance  
+- Works well with encoded categorical features  
 
+---
 
-### **3. Data Preprocessing**
+## 📊 Model Performance
 
-* Treated missing values with:
+### **Final Random Forest Results**
+- **Accuracy:** 0.93  
+- **Precision (Approved = 1):** 0.89  
+- **Recall (Approved = 1):** 0.76  
+- **F1-Score:** 0.82  
+- **ROC-AUC:** 0.9746  
 
-  * Median for numerical
-  * Mode for categorical
-* Encoded categorical variables using:
+The ROC-AUC of **0.9746** indicates excellent separation between good and risky customers.
 
-  * One-Hot Encoding
-  * Label Encoding (for ordinal categories)
-* Scaled numerical features using StandardScaler
-* Addressed potential class imbalance using:
+---
 
-  * SMOTE
-  * or Class Weights
+## 🔥 Threshold Tuning (Advanced)
 
+Tested thresholds: `0.5`, `0.4`, `0.35`, `0.3`, `0.25`  
+Found that **0.35** gives the best balance for business use:
 
-
-### **4. Model Building**
-
-Trained multiple models:
-
-* Logistic Regression
-* Random Forest
-* Decision Tree
-* XGBoost / Gradient Boosting (optional)
-
-Used:
-
-* Train-test split
-* Hyperparameter tuning (GridSearchCV / RandomizedSearchCV)
-* Cross-validation
-
-
-
-### **5. Model Evaluation**
-
-Evaluated models using:
-
-* Accuracy
-* Precision
-* Recall
-* F1-Score
-* Confusion Matrix
-* ROC-AUC Curve
-
-Focus:
-✔ Improving recall for rejected loans
-✔ Maintaining high precision for approved loans
-
-Best performing model:
-**Random Forest / Gradient Boosting** (dataset-dependent)
-
-
-
-## 🚀 **How to Run the Project**
-
-### **Clone the repository**
-
-```bash
-git clone https://github.com/yourusername/loan-approval-classification.git
-cd loan-approval-classification
-```
-
-### **Install dependencies**
-
-```bash
-pip install -r requirements.txt
-```
-
-### **Run the notebook**
-
-```bash
-jupyter notebook
-```
-
-Open:
-`loan_approval_prediction.ipynb`
-
-
-
-## 🛠️ **Technologies Used**
-
-* Python
-* Pandas, NumPy
-* Scikit-Learn
-* Seaborn, Matplotlib
-* Imbalanced-Learn (SMOTE)
-* Jupyter Notebook
-
-
-
-## 📌 **Key Learnings**
-
-* Handling categorical variables
-* Dealing with missing values properly
-* Feature encoding strategies
-* Imbalanced data techniques
-* Model evaluation beyond accuracy
-* Building an end-to-end ML classification pipeline
-
-
-
-## 📄 **Future Enhancements**
-
-* Deploy the model using Flask or FastAPI
-* Convert the notebook into a modular Python application
-* Build a front-end UI for loan application prediction
-* Use SHAP values for model explainability
-* Add more financial risk features
-
-
-
-## 👨‍💻 **Author**
-
-**Aliakbar Kanorewala**
-Aspiring Data Scientist
-Machine Learning | Data Analysis | Data Visualization
-
-
-
-
-
-
+- Highe
