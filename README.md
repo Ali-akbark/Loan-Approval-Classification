@@ -196,10 +196,10 @@ Open:
 
 **Aliakbar Kanorewala**
 Aspiring Data Scientist
-Machine Learning | Data Analysis | Finance ML
+Machine Learning | Data Analysis | Data Visualization
 
 
 
 
 
-Just tell me!
+
